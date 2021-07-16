@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:bossunapp/pages/appbar_new.dart';
+import 'package:bossunapp/model/data_buku.dart';
 
 class MainScreen extends StatelessWidget {
   final List<Tab> myTab = [
@@ -16,89 +17,6 @@ class MainScreen extends StatelessWidget {
     Tab(
       text: 'Romance',
     ),
-  ];
-  final List<Widget> hotList = [
-    Stack(children: [
-      Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Expanded(
-            child: Image.asset('img/buku1.jpg', fit: BoxFit.cover),
-          ),
-        ],
-      ),
-      Container(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-                width: 300,
-                color: Colors.black.withOpacity(0.4),
-                padding: EdgeInsets.all(10),
-                child: Text(
-                  'A Million To One',
-                  style: TextStyle(color: Colors.white),
-                )),
-          ],
-        ),
-      ),
-    ]),
-    Stack(children: [
-      Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Expanded(
-            child: Image.asset('img/totoro.jpg', fit: BoxFit.cover),
-          ),
-        ],
-      ),
-      Container(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-                width: 300,
-                color: Colors.black.withOpacity(0.4),
-                padding: EdgeInsets.all(10),
-                child: Text(
-                  'A Million To One',
-                  style: TextStyle(color: Colors.white),
-                )),
-          ],
-        ),
-      ),
-    ]),
-    Stack(children: [
-      Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Expanded(
-            child: Image.asset('img/buku2.jpg', fit: BoxFit.cover),
-          ),
-        ],
-      ),
-      Container(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-                width: 300,
-                color: Colors.black.withOpacity(0.4),
-                padding: EdgeInsets.all(10),
-                child: Text(
-                  'A Million To One',
-                  style: TextStyle(color: Colors.white),
-                )),
-          ],
-        ),
-      ),
-    ]),
   ];
   @override
   Widget build(BuildContext context) {
@@ -138,14 +56,45 @@ class MainScreen extends StatelessWidget {
           ),
         ),
         body: TabBarView(children: [
-          GridView(
+          GridView.builder(
             padding: EdgeInsets.all(10),
+            itemCount: dataBukuList.length,
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 3,
-                crossAxisSpacing: 10,
-                mainAxisSpacing: 10,
-                childAspectRatio: 3 / 4),
-            children: hotList,
+              crossAxisCount: 3,
+              crossAxisSpacing: 10,
+              mainAxisSpacing: 10,
+              childAspectRatio: 2 / 3,
+            ),
+            itemBuilder: (BuildContext context, int index) {
+              return Stack(children: [
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Expanded(
+                      child: Image.asset(dataBukuList[index].imageAsset,
+                          fit: BoxFit.cover),
+                    ),
+                  ],
+                ),
+                Container(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                          width: 300,
+                          color: Colors.black.withOpacity(0.4),
+                          padding: EdgeInsets.all(10),
+                          child: Text(
+                            dataBukuList[index].judul,
+                            style: TextStyle(color: Colors.white),
+                          )),
+                    ],
+                  ),
+                ),
+              ]);
+            },
           ),
           Center(
             child: Text('tab Comedy'),
@@ -159,5 +108,46 @@ class MainScreen extends StatelessWidget {
         ]),
       ),
     );
+  }
+}
+
+class BukuCover extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    // return Wrap(children: [Text('coba')]
+    return Container(
+        child: Wrap(
+            children: dataBukuList.map((dataBuku) {
+      return Text(dataBuku.imageAsset);
+    }).toList()
+            //   return Stack(children: [
+            //     Column(
+            //       mainAxisAlignment: MainAxisAlignment.start,
+            //       crossAxisAlignment: CrossAxisAlignment.stretch,
+            //       children: [
+            //         Expanded(
+            //           child: Image.asset(dataBuku.imageAsset, fit: BoxFit.cover),
+            //         ),
+            //       ],
+            //     ),
+            //     Container(
+            //       child: Column(
+            //         mainAxisAlignment: MainAxisAlignment.end,
+            //         crossAxisAlignment: CrossAxisAlignment.start,
+            //         children: [
+            //           Container(
+            //               width: 300,
+            //               color: Colors.black.withOpacity(0.4),
+            //               padding: EdgeInsets.all(10),
+            //               child: Text(
+            //                 dataBuku.judul,
+            //                 style: TextStyle(color: Colors.white),
+            //               )),
+            //         ],
+            //       ),
+            //     ),
+            //   ]);
+            // }).toList()),
+            ));
   }
 }
