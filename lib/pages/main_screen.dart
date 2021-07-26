@@ -1,3 +1,4 @@
+import 'package:bossunapp/pages/detail_buku.dart';
 import 'package:flutter/material.dart';
 import 'package:bossunapp/pages/appbar_new.dart';
 import 'package:bossunapp/model/data_buku.dart';
@@ -20,6 +21,7 @@ class MainScreen extends StatelessWidget {
   ];
   @override
   Widget build(BuildContext context) {
+    double _width = MediaQuery.of(context).size.width;
     return DefaultTabController(
       length: myTab.length,
       child: Scaffold(
@@ -60,40 +62,51 @@ class MainScreen extends StatelessWidget {
             padding: EdgeInsets.all(10),
             itemCount: dataBukuList.length,
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 3,
+              crossAxisCount: _width < 400 ? 2 : 3,
               crossAxisSpacing: 10,
               mainAxisSpacing: 10,
               childAspectRatio: 2 / 3,
             ),
             itemBuilder: (BuildContext context, int index) {
-              return Stack(children: [
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    Expanded(
-                      child: Image.asset(dataBukuList[index].imageAsset,
-                          fit: BoxFit.cover),
-                    ),
-                  ],
-                ),
-                Container(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    crossAxisAlignment: CrossAxisAlignment.start,
+              final DataBuku detail = dataBukuList[index];
+              return InkWell(
+                onTap: () {
+                  Navigator.of(context)
+                      .push(MaterialPageRoute(builder: (context) {
+                    return DetailBuku(
+                      detail: detail,
+                    );
+                  }));
+                },
+                child: Stack(children: [
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      Container(
-                          width: 300,
-                          color: Colors.black.withOpacity(0.4),
-                          padding: EdgeInsets.all(10),
-                          child: Text(
-                            dataBukuList[index].judul,
-                            style: TextStyle(color: Colors.white),
-                          )),
+                      Expanded(
+                        child: Image.asset(dataBukuList[index].imageAsset,
+                            fit: BoxFit.cover),
+                      ),
                     ],
                   ),
-                ),
-              ]);
+                  Container(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                            width: 300,
+                            color: Colors.black.withOpacity(0.4),
+                            padding: EdgeInsets.all(10),
+                            child: Text(
+                              dataBukuList[index].judul,
+                              style: TextStyle(color: Colors.white),
+                            )),
+                      ],
+                    ),
+                  ),
+                ]),
+              );
             },
           ),
           Center(
