@@ -153,6 +153,175 @@ class _DetailBukuState extends State<DetailBuku> {
                 indent: 10,
                 endIndent: 10,
               ),
+              Row(
+                children: [
+                  Expanded(
+                      child: Container(
+                    padding: EdgeInsets.all(10),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          padding: EdgeInsets.only(bottom: 10),
+                          child: Text("Ulasan"),
+                        ),
+                        Column(
+                          children: [
+                            Row(
+                              children: [
+                                Container(
+                                  padding: EdgeInsets.only(left: 15),
+                                  child: CircleAvatar(
+                                    backgroundColor: Colors.red,
+                                    radius: 17.0,
+                                    child: ClipOval(
+                                      child: Image.asset('img/depan.jpg'),
+                                    ),
+                                  ),
+                                ),
+                                Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Container(
+                                      padding: EdgeInsets.only(left: 10),
+                                      child: Text("Devanu Irfan",
+                                          style: TextStyle(
+                                              fontSize: 10,
+                                              fontWeight: FontWeight.bold)),
+                                    ),
+                                    Container(
+                                      padding: EdgeInsets.only(left: 10),
+                                      child: Text("★",
+                                          style: TextStyle(fontSize: 11)),
+                                    ),
+                                    Container(
+                                      padding: EdgeInsets.only(left: 10),
+                                      child: Text("Kabur ada pp mikey",
+                                          style: TextStyle(fontSize: 10)),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                Container(
+                                  padding: EdgeInsets.only(left: 15),
+                                  child: CircleAvatar(
+                                    radius: 17.0,
+                                    child: ClipOval(
+                                      child: Image.asset('img/git.png'),
+                                    ),
+                                  ),
+                                ),
+                                Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Container(
+                                      padding: EdgeInsets.only(left: 10),
+                                      child: Text("Meow",
+                                          style: TextStyle(
+                                              fontSize: 10,
+                                              fontWeight: FontWeight.bold)),
+                                    ),
+                                    Container(
+                                      padding: EdgeInsets.only(left: 10),
+                                      child: Text("★★★★",
+                                          style: TextStyle(fontSize: 11)),
+                                    ),
+                                    Container(
+                                      padding: EdgeInsets.only(left: 10),
+                                      child: Text("Maikyy! Tendangan Nuklir!",
+                                          style: TextStyle(fontSize: 10)),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                Container(
+                                  padding: EdgeInsets.only(left: 15),
+                                  child: CircleAvatar(
+                                    radius: 17.0,
+                                    child: ClipOval(
+                                      child: Image.asset('img/andre.jpg'),
+                                    ),
+                                  ),
+                                ),
+                                Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Container(
+                                      padding: EdgeInsets.only(left: 10),
+                                      child: Text("Aditya Andre",
+                                          style: TextStyle(
+                                              fontSize: 10,
+                                              fontWeight: FontWeight.bold)),
+                                    ),
+                                    Container(
+                                      padding: EdgeInsets.only(left: 10),
+                                      child: Text("★★★★★",
+                                          style: TextStyle(fontSize: 11)),
+                                    ),
+                                    Container(
+                                      padding: EdgeInsets.only(left: 10),
+                                      child: Text(
+                                          "Kawai Senju wangy wangy wangy",
+                                          style: TextStyle(fontSize: 10)),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                Container(
+                                  padding: EdgeInsets.only(left: 15),
+                                  child: CircleAvatar(
+                                    radius: 17.0,
+                                    child: ClipOval(
+                                      child: Image.asset('img/pdi.png'),
+                                    ),
+                                  ),
+                                ),
+                                Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Container(
+                                      padding: EdgeInsets.only(left: 10),
+                                      child: Text("Banteng Ngamux",
+                                          style: TextStyle(
+                                              fontSize: 10,
+                                              fontWeight: FontWeight.bold)),
+                                    ),
+                                    Container(
+                                      padding: EdgeInsets.only(left: 10),
+                                      child: Text("★★★★",
+                                          style: TextStyle(fontSize: 11)),
+                                    ),
+                                    Container(
+                                      padding: EdgeInsets.only(left: 10),
+                                      child: Text(
+                                          "Pen potong rambut kaya Draken-kun",
+                                          style: TextStyle(fontSize: 10)),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            )
+                          ],
+                        )
+                      ],
+                    ),
+                  ))
+                ],
+              )
             ],
           ),
         ),
