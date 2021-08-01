@@ -1,7 +1,7 @@
 import 'package:bossunapp/pages/detail_buku.dart';
 import 'package:flutter/material.dart';
 import 'package:bossunapp/pages/appbar_new.dart';
-import 'package:bossunapp/model/data_buku.dart';
+import 'package:bossunapp/models/data_buku.dart';
 
 class MainScreen extends StatelessWidget {
   final List<Tab> myTab = [
