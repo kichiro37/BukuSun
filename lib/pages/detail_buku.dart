@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:bossunapp/model/data_buku.dart';
-import 'package:expandable_text/expandable_text.dart';
+import 'package:bossunapp/models/data_buku.dart';
+import 'package:bossunapp/widgets/read_more.dart';
+import 'package:bossunapp/widgets/review.dart';
 
 class DetailBuku extends StatefulWidget {
   final DataBuku detail;
@@ -136,13 +137,7 @@ class _DetailBukuState extends State<DetailBuku> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          ExpandableText(
-                            widget.detail.deskripsi,
-                            expandText: 'show more',
-                            collapseText: 'show less',
-                            maxLines: 5,
-                            linkColor: Colors.blue,
-                          ),
+                          ReadMore(text: widget.detail.deskripsi),
                         ],
                       ),
                     ),
@@ -166,6 +161,34 @@ class _DetailBukuState extends State<DetailBuku> {
                           padding: EdgeInsets.only(bottom: 10),
                           child: Text("Ulasan"),
                         ),
+                        Container(
+                          padding: EdgeInsets.only(left: 15),
+                          child: Text(
+                            "4.6",
+                            style: TextStyle(fontSize: 40),
+                          ),
+                        ),
+                        Container(
+                          padding: EdgeInsets.only(left: 15),
+                          child: Text(
+                            "★★★★",
+                            style: TextStyle(fontSize: 15),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ))
+                ],
+              ),
+              Row(
+                children: [
+                  Expanded(
+                      child: Container(
+                    padding: EdgeInsets.all(10),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
                         Column(
                           children: [
                             Row(
