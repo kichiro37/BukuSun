@@ -8,10 +8,14 @@ class DetailBuku extends StatefulWidget {
   DetailBuku({required this.detail});
 
   @override
-  _DetailBukuState createState() => _DetailBukuState();
+  _DetailBukuState createState() => _DetailBukuState(detail);
 }
 
 class _DetailBukuState extends State<DetailBuku> {
+  var reviews;
+  _DetailBukuState(detail) {
+    reviews = reviewBukuList(detail.id);
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -148,7 +152,7 @@ class _DetailBukuState extends State<DetailBuku> {
                 indent: 10,
                 endIndent: 10,
               ),
-              Review(reviews: widget.detail.reviews),
+              Review(reviews: reviews),
             ],
           ),
         ),
