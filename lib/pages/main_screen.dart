@@ -1,7 +1,7 @@
-import 'package:bossunapp/pages/detail_buku.dart';
+import 'package:bossunapp/models/data_buku.dart';
 import 'package:flutter/material.dart';
 import 'package:bossunapp/pages/appbar_new.dart';
-import 'package:bossunapp/models/data_buku.dart';
+import 'package:bossunapp/pages/view_buku.dart';
 
 class MainScreen extends StatelessWidget {
   final List<Tab> myTab = [
@@ -21,7 +21,6 @@ class MainScreen extends StatelessWidget {
   ];
   @override
   Widget build(BuildContext context) {
-    double _width = MediaQuery.of(context).size.width;
     return DefaultTabController(
       length: myTab.length,
       child: Scaffold(
@@ -58,57 +57,7 @@ class MainScreen extends StatelessWidget {
           ),
         ),
         body: TabBarView(children: [
-          GridView.builder(
-            padding: EdgeInsets.all(10),
-            itemCount: dataBukuList.length,
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: _width < 400 ? 2 : 3,
-              crossAxisSpacing: 10,
-              mainAxisSpacing: 10,
-              childAspectRatio: 2 / 3,
-            ),
-            itemBuilder: (BuildContext context, int index) {
-              final DataBuku detail = dataBukuList[index];
-              return InkWell(
-                onTap: () {
-                  Navigator.of(context)
-                      .push(MaterialPageRoute(builder: (context) {
-                    return DetailBuku(
-                      detail: detail,
-                    );
-                  }));
-                },
-                child: Stack(children: [
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      Expanded(
-                        child: Image.asset(dataBukuList[index].imageAsset,
-                            fit: BoxFit.cover),
-                      ),
-                    ],
-                  ),
-                  Container(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                            width: 300,
-                            color: Colors.black.withOpacity(0.4),
-                            padding: EdgeInsets.all(10),
-                            child: Text(
-                              dataBukuList[index].judul,
-                              style: TextStyle(color: Colors.white),
-                            )),
-                      ],
-                    ),
-                  ),
-                ]),
-              );
-            },
-          ),
+          ViewBuku(dataBukuList: dataBukuList),
           Center(
             child: Text('tab Comedy'),
           ),
