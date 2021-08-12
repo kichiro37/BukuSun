@@ -83,10 +83,19 @@ class Review extends StatelessWidget {
                                                 fontSize: 10,
                                                 fontWeight: FontWeight.bold)),
                                       ),
-                                      Container(
-                                        padding: EdgeInsets.only(left: 10),
-                                        child: Text(reviews[index].bintang,
-                                            style: TextStyle(fontSize: 11)),
+                                      Row(
+                                        children: [
+                                          Container(
+                                            padding: EdgeInsets.only(left: 10),
+                                            child: Text(reviews[index].bintang,
+                                                style: TextStyle(fontSize: 11)),
+                                          ),
+                                          Container(
+                                            padding: EdgeInsets.only(left: 5),
+                                            child: Text(reviews[index].tanggal,
+                                                style: TextStyle(fontSize: 10)),
+                                          ),
+                                        ],
                                       ),
                                       Container(
                                         width: 230,

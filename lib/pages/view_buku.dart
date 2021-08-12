@@ -6,7 +6,7 @@ import 'package:bossunapp/widgets/buku.dart';
 class ViewBuku extends StatefulWidget {
   final dataBukuList;
   final viewMode;
-  ViewBuku({required this.dataBukuList, this.viewMode = 0});
+  const ViewBuku({required this.dataBukuList, this.viewMode = 2});
 
   @override
   _ViewBukuState createState() => _ViewBukuState();
@@ -16,61 +16,69 @@ class _ViewBukuState extends State<ViewBuku> {
   @override
   Widget build(BuildContext context) {
     double _width = MediaQuery.of(context).size.width;
-    return widget.viewMode == 1 ? bukuGrid(_width) : bukuHorizontal();
+    return widget.viewMode == 1
+        ? bukuVertical()
+        : widget.viewMode == 2
+            ? bukuHorizontal()
+            : bukuGrid(_width);
   }
 
   Widget bukuHorizontal() {
-    return Expanded(
-        child: ListView.builder(
-            shrinkWrap: true,
-            scrollDirection: Axis.horizontal,
-            itemCount: dataBukuList.length,
-            itemBuilder: (context, index) {
-              return Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Card(
+    return ListView.builder(
+        padding: EdgeInsets.all(10),
+        scrollDirection: Axis.horizontal,
+        itemCount: dataBukuList.length,
+        itemBuilder: (context, index) {
+          return Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              InkWell(
+                onTap: () {
+                  Navigator.of(context)
+                      .push(MaterialPageRoute(builder: (context) {
+                    final DataBuku detail = dataBukuList[index];
+                    return DetailBuku(
+                      detail: detail,
+                    );
+                  }));
+                },
+                child: Card(
+                    child: ClipRRect(
+                  borderRadius: BorderRadius.circular(10),
+                  child: Container(
+                    width: 150,
+                    height: 250,
                     color: Colors.amber,
-                    margin: EdgeInsets.all(15),
-                    child: InkWell(
-                      onTap: () {
-                        Navigator.of(context)
-                            .push(MaterialPageRoute(builder: (context) {
-                          final DataBuku detail = dataBukuList[index];
-                          return DetailBuku(
-                            detail: detail,
-                          );
-                        }));
-                      },
-                      child: Container(
-                          padding: EdgeInsets.only(top: 10),
-                          height: 150,
-                          child: Row(
-                            children: [
-                              Column(
-                                children: [
-                                  Expanded(
-                                      child: Container(
-                                    height: 200,
-                                    child: Image.asset(
-                                      dataBukuList[index].imageAsset,
-                                    ),
-                                  )),
-                                  Container(
-                                      padding: EdgeInsets.all(10),
-                                      width: 110,
-                                      child: Text(dataBukuList[index].judul,
-                                          textAlign: TextAlign.center,
-                                          overflow: TextOverflow.ellipsis))
-                                ],
-                              )
-                            ],
-                          )),
+                    child: Column(
+                      children: [
+                        Container(
+                            margin: EdgeInsets.all(10),
+                            width: 150,
+                            height: 200,
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(10.0),
+                                  topRight: Radius.circular(10.0)),
+                              child: Image.asset(
+                                dataBukuList[index].imageAsset,
+                                fit: BoxFit.cover,
+                              ),
+                            )),
+                        Container(
+                          padding: EdgeInsets.all(5),
+                          child: Text(dataBukuList[index].judul,
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                              textAlign: TextAlign.center,
+                              overflow: TextOverflow.ellipsis),
+                        )
+                      ],
                     ),
-                  )
-                ],
-              );
-            }));
+                  ),
+                )),
+              )
+            ],
+          );
+        });
   }
 
   Widget bukuVertical() {
