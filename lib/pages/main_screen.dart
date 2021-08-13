@@ -29,31 +29,29 @@ class MainScreen extends StatelessWidget {
           onPressed: () {},
           child: Icon(Icons.keyboard_arrow_up),
         ),
-        drawer: SafeArea(
-          child: Drawer(
-            child: ListView(
-              padding: EdgeInsets.zero,
-              children: <Widget>[
-                Container(
-                  height: 170,
-                  color: Colors.amber,
-                  child: Image.asset(
-                    'img/totoro.jpg',
-                    fit: BoxFit.cover,
-                  ),
+        drawer: Drawer(
+          child: ListView(
+            padding: EdgeInsets.zero,
+            children: <Widget>[
+              Container(
+                height: 170,
+                color: Colors.amber,
+                child: Image.asset(
+                  'img/totoro.jpg',
+                  fit: BoxFit.cover,
                 ),
-                ListTile(
-                  leading: Icon(Icons.home),
-                  title: Text('Home'),
-                  onTap: () {},
-                ),
-                ListTile(
-                  leading: Icon(Icons.coffee),
-                  title: Text('Saweria'),
-                  onTap: () {},
-                ),
-              ],
-            ),
+              ),
+              ListTile(
+                leading: Icon(Icons.home),
+                title: Text('Home'),
+                onTap: () {},
+              ),
+              ListTile(
+                leading: Icon(Icons.coffee),
+                title: Text('Saweria'),
+                onTap: () {},
+              ),
+            ],
           ),
         ),
         body: TabBarView(children: [

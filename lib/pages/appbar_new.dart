@@ -7,8 +7,7 @@ class AppBarNew extends StatelessWidget implements PreferredSizeWidget {
   final List<Tab> myTab;
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-        child: AppBar(
+    return AppBar(
       backgroundColor: Colors.amber,
       centerTitle: true,
       title: Text('BossunApp'),
@@ -18,6 +17,6 @@ class AppBarNew extends StatelessWidget implements PreferredSizeWidget {
         indicatorColor: Colors.orange,
         tabs: myTab,
       ),
-    ));
+    );
   }
 }
