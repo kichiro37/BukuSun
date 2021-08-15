@@ -16,16 +16,11 @@ class _LoginState extends State<Login> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Email',
-          style: TextStyle(
-              color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
-        ),
         SizedBox(height: 10),
         Container(
           alignment: Alignment.centerLeft,
           decoration: BoxDecoration(
-              color: Colors.white,
+              color: Colors.black54,
               borderRadius: BorderRadius.circular(10),
               boxShadow: [
                 BoxShadow(
@@ -34,7 +29,7 @@ class _LoginState extends State<Login> {
           height: 50,
           child: TextField(
             keyboardType: TextInputType.emailAddress,
-            style: TextStyle(color: Colors.black87),
+            style: TextStyle(color: Colors.amber),
             decoration: InputDecoration(
                 border: InputBorder.none,
                 contentPadding: EdgeInsets.only(top: 14),
@@ -42,8 +37,8 @@ class _LoginState extends State<Login> {
                   Icons.email,
                   color: Color(0xffffd700),
                 ),
-                hintText: 'Email',
-                hintStyle: TextStyle(color: Colors.black38)),
+                hintText: 'Email / Username',
+                hintStyle: TextStyle(color: Colors.amber)),
           ),
         )
       ],
@@ -54,16 +49,11 @@ class _LoginState extends State<Login> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Password',
-          style: TextStyle(
-              color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
-        ),
         SizedBox(height: 10),
         Container(
           alignment: Alignment.centerLeft,
           decoration: BoxDecoration(
-              color: Colors.white,
+              color: Colors.black54,
               borderRadius: BorderRadius.circular(10),
               boxShadow: [
                 BoxShadow(
@@ -72,7 +62,7 @@ class _LoginState extends State<Login> {
           height: 50,
           child: TextField(
             obscureText: true,
-            style: TextStyle(color: Colors.black87),
+            style: TextStyle(color: Colors.amber),
             decoration: InputDecoration(
                 border: InputBorder.none,
                 contentPadding: EdgeInsets.only(top: 14),
@@ -81,7 +71,7 @@ class _LoginState extends State<Login> {
                   color: Color(0xffffd700),
                 ),
                 hintText: 'Password',
-                hintStyle: TextStyle(color: Colors.black38)),
+                hintStyle: TextStyle(color: Colors.amber)),
           ),
         )
       ],
@@ -97,7 +87,8 @@ class _LoginState extends State<Login> {
           },
           child: Text(
             'Forgot Password?',
-            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+            style:
+                TextStyle(color: Colors.black87, fontWeight: FontWeight.bold),
           )),
     );
   }
@@ -108,11 +99,11 @@ class _LoginState extends State<Login> {
       child: Row(
         children: [
           Theme(
-            data: ThemeData(unselectedWidgetColor: Colors.white),
+            data: ThemeData(unselectedWidgetColor: Colors.black87),
             child: Checkbox(
               value: isRememberMe,
               checkColor: Colors.amber,
-              activeColor: Colors.white,
+              activeColor: Colors.black87,
               onChanged: (value) {
                 setState(() {
                   isRememberMe = value!;
@@ -122,7 +113,7 @@ class _LoginState extends State<Login> {
           ),
           Text('Remember me',
               style:
-                  TextStyle(color: Colors.white, fontWeight: FontWeight.bold))
+                  TextStyle(color: Colors.black87, fontWeight: FontWeight.bold))
         ],
       ),
     );
@@ -132,14 +123,16 @@ class _LoginState extends State<Login> {
     return Container(
       padding: EdgeInsets.symmetric(vertical: 25),
       width: double.infinity,
-      child: RaisedButton(
-        elevation: 5,
+      child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          primary: Colors.black87,
+          padding: EdgeInsets.all(15),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+        ),
         onPressed: () {
           print('Login Pressed');
         },
-        padding: EdgeInsets.all(15),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-        color: Colors.white,
         child: Text(
           'LOGIN',
           style: TextStyle(
@@ -150,25 +143,27 @@ class _LoginState extends State<Login> {
   }
 
   Widget buildSignUpBtn() {
-    return GestureDetector(
-      onTap: () {
-        Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-          return Register();
-        }));
-      },
-      child: RichText(
-          text: TextSpan(children: [
-        TextSpan(
-            text: 'Dont\'t have an Account? ',
-            style: TextStyle(
-                color: Colors.white,
-                fontSize: 18,
-                fontWeight: FontWeight.w500)),
-        TextSpan(
-            text: 'Sign Up',
-            style: TextStyle(
-                color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold))
-      ])),
+    return Container(
+      padding: EdgeInsets.symmetric(vertical: 25),
+      width: double.infinity,
+      child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          primary: Colors.amber,
+          padding: EdgeInsets.all(15),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+        ),
+        onPressed: () {
+          Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+            return Register();
+          }));
+        },
+        child: Text(
+          'SIGN UP',
+          style: TextStyle(
+              color: Colors.black87, fontSize: 18, fontWeight: FontWeight.bold),
+        ),
+      ),
     );
   }
 
@@ -183,45 +178,55 @@ class _LoginState extends State<Login> {
               Container(
                 height: double.infinity,
                 width: double.infinity,
-                decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                        colors: [
-                      Color(0x66ffd700),
-                      Color(0x99ffd700),
-                      Color(0xccffd700),
-                      Color(0xffffd700),
-                    ])),
+                color: Colors.black87,
                 child: SingleChildScrollView(
                   physics: AlwaysScrollableScrollPhysics(),
-                  padding: EdgeInsets.symmetric(horizontal: 25, vertical: 50),
+                  padding: EdgeInsets.symmetric(horizontal: 25, vertical: 500),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        'Sign in',
+                        'OR',
                         style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 40,
+                            color: Colors.amber,
+                            fontSize: 20,
                             fontWeight: FontWeight.bold),
                       ),
-                      Container(
-                        width: 200,
-                        height: 200,
-                        child: Image.asset(
-                          'img/logobuku.png',
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                      buildEmail(),
-                      SizedBox(height: 10),
-                      buildPassword(),
-                      buildForgotBtn(),
-                      buildRemember(),
-                      buildLoginBtn(),
                       buildSignUpBtn()
                     ],
+                  ),
+                ),
+              ),
+              ClipRRect(
+                borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(50.0),
+                    bottomRight: Radius.circular(50.0)),
+                child: Container(
+                  height: 450,
+                  width: double.infinity,
+                  color: Colors.amber,
+                  child: SingleChildScrollView(
+                    physics: AlwaysScrollableScrollPhysics(),
+                    padding: EdgeInsets.symmetric(horizontal: 25, vertical: 50),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'BukuSun',
+                          style: TextStyle(
+                              color: Colors.black87,
+                              fontSize: 30,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        SizedBox(height: 40),
+                        buildEmail(),
+                        SizedBox(height: 10),
+                        buildPassword(),
+                        buildForgotBtn(),
+                        buildRemember(),
+                        buildLoginBtn(),
+                      ],
+                    ),
                   ),
                 ),
               )

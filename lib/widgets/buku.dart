@@ -87,7 +87,10 @@ class Buku extends StatelessWidget {
                 Container(
                   margin: EdgeInsets.only(right: 10),
                   child: Center(
-                    child: RaisedButton(
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.lightBlue,
+                      ),
                       onPressed: () {
                         print("beli");
                       },
@@ -95,7 +98,6 @@ class Buku extends StatelessWidget {
                         "Beli",
                         style: TextStyle(color: Colors.white),
                       ),
-                      color: Colors.lightBlue,
                     ),
                   ),
                 ),
