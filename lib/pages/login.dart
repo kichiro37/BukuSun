@@ -1,6 +1,9 @@
+import 'package:bossunapp/pages/main_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:bossunapp/pages/register.dart';
+//import 'package:bossunapp/pages/main_screen.dart';
+import 'package:bossunapp/models/data_account.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -11,8 +14,90 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
   bool isRememberMe = false;
+  bool isLogin = false;
+  String username = '';
+  String password = '';
 
-  Widget buildEmail() {
+  void doLogin(username, password) {
+    dataAccount.forEach((akun) {
+      if (akun.username == username && akun.password == password) {
+        isLogin = true;
+      }
+    });
+    if (!isLogin) print('username / password salah');
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: AnnotatedRegion<SystemUiOverlayStyle>(
+        value: SystemUiOverlayStyle.light,
+        child: GestureDetector(
+          child: Stack(
+            children: [
+              Container(
+                height: double.infinity,
+                width: double.infinity,
+                color: Colors.black87,
+                child: SingleChildScrollView(
+                  physics: AlwaysScrollableScrollPhysics(),
+                  padding: EdgeInsets.only(right: 25, left: 25, top: 500),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'OR',
+                        style: TextStyle(
+                            color: Colors.amber,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold),
+                      ),
+                      buildSignUpBtn()
+                    ],
+                  ),
+                ),
+              ),
+              ClipRRect(
+                borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(50.0),
+                    bottomRight: Radius.circular(50.0)),
+                child: Container(
+                  height: 450,
+                  width: double.infinity,
+                  color: Colors.amber,
+                  child: SingleChildScrollView(
+                    physics: AlwaysScrollableScrollPhysics(),
+                    padding: EdgeInsets.symmetric(horizontal: 25, vertical: 50),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'BukuSun',
+                          style: TextStyle(
+                              color: Colors.black87,
+                              fontSize: 30,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        SizedBox(height: 40),
+                        buildUsername(),
+                        SizedBox(height: 10),
+                        buildPassword(),
+                        buildForgotBtn(),
+                        buildRemember(),
+                        buildLoginBtn(),
+                      ],
+                    ),
+                  ),
+                ),
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget buildUsername() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -28,16 +113,19 @@ class _LoginState extends State<Login> {
               ]),
           height: 50,
           child: TextField(
+            onChanged: (value) {
+              username = value;
+            },
             keyboardType: TextInputType.emailAddress,
             style: TextStyle(color: Colors.amber),
             decoration: InputDecoration(
                 border: InputBorder.none,
                 contentPadding: EdgeInsets.only(top: 14),
                 prefixIcon: Icon(
-                  Icons.email,
+                  Icons.person,
                   color: Color(0xffffd700),
                 ),
-                hintText: 'Email / Username',
+                hintText: 'Username',
                 hintStyle: TextStyle(color: Colors.amber)),
           ),
         )
@@ -61,6 +149,9 @@ class _LoginState extends State<Login> {
               ]),
           height: 50,
           child: TextField(
+            onChanged: (value) {
+              password = value;
+            },
             obscureText: true,
             style: TextStyle(color: Colors.amber),
             decoration: InputDecoration(
@@ -131,7 +222,13 @@ class _LoginState extends State<Login> {
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
         ),
         onPressed: () {
-          print('Login Pressed');
+          doLogin(username, password);
+          if (isLogin == true) {
+            Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+              return MainScreen();
+            }));
+          } else
+            print('LOGIN GAGAL');
         },
         child: Text(
           'LOGIN',
@@ -162,76 +259,6 @@ class _LoginState extends State<Login> {
           'SIGN UP',
           style: TextStyle(
               color: Colors.black87, fontSize: 18, fontWeight: FontWeight.bold),
-        ),
-      ),
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: AnnotatedRegion<SystemUiOverlayStyle>(
-        value: SystemUiOverlayStyle.light,
-        child: GestureDetector(
-          child: Stack(
-            children: [
-              Container(
-                height: double.infinity,
-                width: double.infinity,
-                color: Colors.black87,
-                child: SingleChildScrollView(
-                  physics: AlwaysScrollableScrollPhysics(),
-                  padding: EdgeInsets.symmetric(horizontal: 25, vertical: 500),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        'OR',
-                        style: TextStyle(
-                            color: Colors.amber,
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold),
-                      ),
-                      buildSignUpBtn()
-                    ],
-                  ),
-                ),
-              ),
-              ClipRRect(
-                borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(50.0),
-                    bottomRight: Radius.circular(50.0)),
-                child: Container(
-                  height: 450,
-                  width: double.infinity,
-                  color: Colors.amber,
-                  child: SingleChildScrollView(
-                    physics: AlwaysScrollableScrollPhysics(),
-                    padding: EdgeInsets.symmetric(horizontal: 25, vertical: 50),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          'BukuSun',
-                          style: TextStyle(
-                              color: Colors.black87,
-                              fontSize: 30,
-                              fontWeight: FontWeight.bold),
-                        ),
-                        SizedBox(height: 40),
-                        buildEmail(),
-                        SizedBox(height: 10),
-                        buildPassword(),
-                        buildForgotBtn(),
-                        buildRemember(),
-                        buildLoginBtn(),
-                      ],
-                    ),
-                  ),
-                ),
-              )
-            ],
-          ),
         ),
       ),
     );

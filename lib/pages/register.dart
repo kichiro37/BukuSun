@@ -1,17 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
-class Account {
-  String username;
-  String name;
-  String password;
-
-  Account({
-    required this.username,
-    required this.name,
-    required this.password,
-  });
-}
+import 'package:bossunapp/models/data_account.dart';
 
 class Register extends StatefulWidget {
   const Register({Key? key}) : super(key: key);
@@ -54,8 +43,65 @@ Widget buildLoginBtn(context) {
 }
 
 class _RegisterState extends State<Register> {
-  String? username, name, password;
-  var akun = [];
+  final _text = TextEditingController();
+  bool _validate = false;
+  String? username;
+  String? name;
+  String? password;
+  String repassword = '';
+  String? imgUrl;
+
+  void doRegister(username, name, password, repassword, imgUrl) {
+    if (username != null &&
+        name != null &&
+        password != null &&
+        imgUrl != null) {
+      if (password.length >= 8) {
+        if (password == repassword) {
+          var isFound = false;
+          dataAccount.forEach((akun) {
+            // print('=====user=====');
+            // print(username);
+            // print('=====name=====');
+            // print(akun.username);
+            // print('=====OO=====');
+            if (akun.username == username) {
+              isFound = true;
+              print('gagal regiter karena user sama');
+            }
+          });
+          if (!isFound) {
+            print('register');
+            addAccount(username, name, password, imgUrl);
+          }
+        } else
+          print('repassword tidak sama');
+      } else
+        print('panjang password kurang dari 8');
+    } else
+      print('gagal register');
+  }
+
+  void addAccount(username, name, password, imgUrl) {
+    dataAccount.add(
+      Account(
+          username: username, name: name, password: password, imgUrl: imgUrl),
+    );
+    dataAccount.forEach((akun) {
+      print('=================');
+      print(akun.username);
+      print(akun.name);
+      print(akun.password);
+      print(akun.imgUrl);
+      print('=================');
+    });
+  }
+
+  @override
+  void dispose() {
+    _text.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -71,7 +117,7 @@ class _RegisterState extends State<Register> {
                 color: Colors.black87,
                 child: SingleChildScrollView(
                   physics: AlwaysScrollableScrollPhysics(),
-                  padding: EdgeInsets.symmetric(horizontal: 25, vertical: 180),
+                  padding: EdgeInsets.only(right: 25, left: 25, top: 160),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -82,17 +128,16 @@ class _RegisterState extends State<Register> {
                             fontSize: 30,
                             fontWeight: FontWeight.bold),
                       ),
-                      SizedBox(height: 20),
+                      SizedBox(height: 10),
                       buildUsername(),
-                      SizedBox(height: 20),
+                      SizedBox(height: 10),
                       buildName(),
-                      SizedBox(height: 20),
+                      SizedBox(height: 10),
                       buildPassword(),
-                      SizedBox(height: 20),
+                      SizedBox(height: 10),
                       buildRePassword(),
-                      SizedBox(height: 20),
+                      SizedBox(height: 10),
                       buildImgURL(),
-                      SizedBox(height: 20),
                       buildRegisterBtn(),
                     ],
                   ),
@@ -103,7 +148,7 @@ class _RegisterState extends State<Register> {
                     bottomLeft: Radius.circular(50.0),
                     bottomRight: Radius.circular(50.0)),
                 child: Container(
-                  height: 170,
+                  height: 150,
                   width: double.infinity,
                   color: Colors.amber,
                   child: SingleChildScrollView(
@@ -112,7 +157,6 @@ class _RegisterState extends State<Register> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        SizedBox(height: 25),
                         buildLoginBtn(context),
                       ],
                     ),
@@ -142,14 +186,17 @@ class _RegisterState extends State<Register> {
               ]),
           height: 50,
           child: TextField(
+            controller: _text,
             onChanged: (value) {
               username = value;
             },
             keyboardType: TextInputType.name,
             style: TextStyle(color: Colors.amber),
             decoration: InputDecoration(
+                errorText: _validate ? 'Username can\'t be empty' : null,
+                errorStyle: TextStyle(color: Colors.amber),
                 border: InputBorder.none,
-                contentPadding: EdgeInsets.only(top: 14),
+                contentPadding: EdgeInsets.only(top: 14, left: 14),
                 prefixIcon: Icon(
                   Icons.person,
                   color: Color(0xffffd700),
@@ -214,8 +261,8 @@ class _RegisterState extends State<Register> {
               ]),
           height: 50,
           child: TextField(
-            onChanged: (valuepassword) {
-              password = valuepassword;
+            onChanged: (value) {
+              password = value;
             },
             obscureText: true,
             style: TextStyle(color: Colors.amber),
@@ -250,6 +297,9 @@ class _RegisterState extends State<Register> {
               ]),
           height: 50,
           child: TextField(
+            onChanged: (value) {
+              repassword = value;
+            },
             obscureText: true,
             style: TextStyle(color: Colors.amber),
             decoration: InputDecoration(
@@ -283,6 +333,9 @@ class _RegisterState extends State<Register> {
               ]),
           height: 50,
           child: TextField(
+            onChanged: (value) {
+              imgUrl = value;
+            },
             keyboardType: TextInputType.text,
             style: TextStyle(color: Colors.amber),
             decoration: InputDecoration(
@@ -312,11 +365,10 @@ class _RegisterState extends State<Register> {
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
         ),
         onPressed: () {
-          // akun.add(Account(
-          //     username: username.toString(),
-          //     name: name.toString(),
-          //     password: password.toString()));
-          // print(akun.map((E) => ));
+          setState(() {
+            _text.text.isEmpty ? _validate = true : _validate = false;
+            doRegister(username, name, password, repassword, imgUrl);
+          });
         },
         child: Text(
           'SIGN UP',
