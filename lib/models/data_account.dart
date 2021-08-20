@@ -12,6 +12,15 @@ class Account {
 }
 
 List<Account> dataAccount = [
-  Account(username: 'kichiro', name: '432', password: '4213', imgUrl: '432'),
-  Account(username: 'bossun', name: '432', password: '4213', imgUrl: '432'),
+  Account(username: 'admin', name: 'admin', password: 'admin', imgUrl: 'admin'),
+  Account(
+      username: 'kichiro',
+      name: 'Aditya Andre',
+      password: '1234',
+      imgUrl: '432'),
+  Account(
+      username: 'bossun',
+      name: 'Kurniawan Aditya',
+      password: '1234',
+      imgUrl: '432'),
 ];

@@ -24,7 +24,6 @@ class ReviewBuku {
   String bintang;
   String imageAsset;
   String komentar;
-  String tanggal;
 
   ReviewBuku(
       {required this.id,
@@ -32,8 +31,7 @@ class ReviewBuku {
       required this.nama,
       required this.bintang,
       required this.imageAsset,
-      required this.komentar,
-      required this.tanggal});
+      required this.komentar});
 }
 
 var dataBukuList = [
@@ -83,8 +81,7 @@ var reviewList = [
       nama: 'depan',
       bintang: '★★',
       imageAsset: 'img/depan.jpg',
-      komentar: 'larii ada banteeeeng',
-      tanggal: 'Agustus 17, 2021'),
+      komentar: 'larii ada banteeeeng'),
   ReviewBuku(
       id: 'review2',
       idBuku: 'buku4',
@@ -92,35 +89,34 @@ var reviewList = [
       bintang: '★★',
       imageAsset: 'img/depan.jpg',
       komentar:
-          'larii ada banteeeenglarii ada banteeeenglarii ada banteeeenglarii ada banteeeeng',
-      tanggal: 'Agustus 17, 2021'),
+          'larii ada banteeeenglarii ada banteeeenglarii ada banteeeenglarii ada banteeeeng'),
   ReviewBuku(
-      id: 'review5',
-      idBuku: 'buku1',
-      nama: 'depan',
-      bintang: '★★',
-      imageAsset: 'img/depan.jpg',
-      komentar:
-          'larii ada banteeeenglarii ada banteeeenglarii ada banteeeenglarii ada banteeeeng',
-      tanggal: 'Agustus 17, 2021'),
+    id: 'review5',
+    idBuku: 'buku1',
+    nama: 'depan',
+    bintang: '★★',
+    imageAsset: 'img/depan.jpg',
+    komentar:
+        'larii ada banteeeenglarii ada banteeeenglarii ada banteeeenglarii ada banteeeeng',
+  ),
   ReviewBuku(
-      id: 'review3',
-      idBuku: 'buku4',
-      nama: 'depan',
-      bintang: '★★',
-      imageAsset: 'img/depan.jpg',
-      komentar:
-          'larii ada banteeeenglarii ada banteeeenglarii ada banteeeenglarii ada banteeeeng',
-      tanggal: 'Agustus 17, 2021'),
+    id: 'review3',
+    idBuku: 'buku4',
+    nama: 'depan',
+    bintang: '★★',
+    imageAsset: 'img/depan.jpg',
+    komentar:
+        'larii ada banteeeenglarii ada banteeeenglarii ada banteeeenglarii ada banteeeeng',
+  ),
   ReviewBuku(
-      id: 'review4',
-      idBuku: 'buku4',
-      nama: 'depan',
-      bintang: '★★',
-      imageAsset: 'img/depan.jpg',
-      komentar:
-          'larii ada banteeeenglarii ada banteeeenglarii ada banteeeenglarii ada banteeeenglarii ada banteeeenglarii ada banteeeenglarii ada banteeeenglarii ada banteeeenglarii ada banteeeenglarii ada banteeeenglarii ada banteeeenglarii ada banteeeenglarii ada banteeeenglarii ada banteeeenglarii ada banteeeenglarii ada banteeeeng',
-      tanggal: 'Agustus 17, 2021')
+    id: 'review4',
+    idBuku: 'buku4',
+    nama: 'depan',
+    bintang: '★★',
+    imageAsset: 'img/depan.jpg',
+    komentar:
+        'larii ada banteeeenglarii ada banteeeenglarii ada banteeeenglarii ada banteeeenglarii ada banteeeenglarii ada banteeeenglarii ada banteeeenglarii ada banteeeenglarii ada banteeeenglarii ada banteeeenglarii ada banteeeenglarii ada banteeeenglarii ada banteeeenglarii ada banteeeenglarii ada banteeeenglarii ada banteeeeng',
+  )
 ];
 
 List reviewBukuList(idBuku) {

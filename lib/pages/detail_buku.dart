@@ -6,7 +6,9 @@ import 'package:bossunapp/widgets/buku.dart';
 
 class DetailBuku extends StatefulWidget {
   final DataBuku detail;
-  DetailBuku({required this.detail});
+  final name;
+  final imgUrl;
+  DetailBuku({required this.detail, this.name, this.imgUrl});
 
   @override
   _DetailBukuState createState() => _DetailBukuState(detail);
@@ -17,6 +19,7 @@ class _DetailBukuState extends State<DetailBuku> {
   _DetailBukuState(detail) {
     reviews = reviewBukuList(detail.id);
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,7 +57,12 @@ class _DetailBukuState extends State<DetailBuku> {
                 indent: 10,
                 endIndent: 10,
               ),
-              Review(reviews: reviews),
+              Review(
+                detail: widget.detail,
+                reviews: reviews,
+                name: widget.name,
+                imgUrl: widget.imgUrl,
+              ),
             ],
           ),
         ),

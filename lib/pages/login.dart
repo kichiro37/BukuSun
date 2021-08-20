@@ -2,7 +2,6 @@ import 'package:bossunapp/pages/main_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:bossunapp/pages/register.dart';
-//import 'package:bossunapp/pages/main_screen.dart';
 import 'package:bossunapp/models/data_account.dart';
 
 class Login extends StatefulWidget {
@@ -17,6 +16,18 @@ class _LoginState extends State<Login> {
   bool isLogin = false;
   String username = '';
   String password = '';
+  String name = '';
+  String imgUrl = '';
+
+  void userInfo(username) {
+    print(username);
+    for (var i = 1; i <= dataAccount.length; i++) {
+      if (username == dataAccount[i - 1].username) {
+        name = dataAccount[i - 1].name;
+        imgUrl = dataAccount[i - 1].imgUrl;
+      }
+    }
+  }
 
   void doLogin(username, password) {
     dataAccount.forEach((akun) {
@@ -114,9 +125,11 @@ class _LoginState extends State<Login> {
           height: 50,
           child: TextField(
             onChanged: (value) {
-              username = value;
+              setState(() {
+                username = value;
+              });
             },
-            keyboardType: TextInputType.emailAddress,
+            keyboardType: TextInputType.name,
             style: TextStyle(color: Colors.amber),
             decoration: InputDecoration(
                 border: InputBorder.none,
@@ -223,9 +236,10 @@ class _LoginState extends State<Login> {
         ),
         onPressed: () {
           doLogin(username, password);
+          userInfo(username);
           if (isLogin == true) {
             Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-              return MainScreen();
+              return MainScreen(username: username, name: name, imgUrl: imgUrl);
             }));
           } else
             print('LOGIN GAGAL');

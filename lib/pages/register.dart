@@ -67,7 +67,7 @@ class _RegisterState extends State<Register> {
             // print('=====OO=====');
             if (akun.username == username) {
               isFound = true;
-              print('gagal regiter karena user sama');
+              print('gagal register karena user sama');
             }
           });
           if (!isFound) {
