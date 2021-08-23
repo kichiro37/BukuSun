@@ -4,9 +4,8 @@ import 'package:bossunapp/models/data_buku.dart';
 class Review extends StatefulWidget {
   final DataBuku detail;
   final reviews;
-  final name;
-  final imgUrl;
-  const Review({required this.detail, this.reviews, this.name, this.imgUrl});
+  final username;
+  const Review({required this.detail, this.username, this.reviews});
 
   @override
   _ReviewState createState() => _ReviewState();
@@ -18,22 +17,21 @@ class _ReviewState extends State<Review> {
   String id = 'review6';
   //String idBuku = '';
 
-  void doKomentar(id, idBuku, name, bintang, imgUrl, komentar) {
+  void doKomentar(id, idBuku, username, bintang, komentar) {
     reviewList.add(ReviewBuku(
         id: id,
         idBuku: idBuku,
-        nama: name,
+        username: widget.username,
         bintang: bintang,
-        imageAsset: imgUrl,
         komentar: komentar));
     print(widget.reviews);
   }
 
   @override
   Widget build(BuildContext context) {
-    print('================================================================');
-    print(widget.reviews);
-    print('================================================================');
+    // print('================================================================');
+    // print('name');
+    // print('================================================================');
     return Column(
       children: [
         Row(
@@ -84,8 +82,8 @@ class _ReviewState extends State<Review> {
                               primary: Colors.lightBlue,
                             ),
                             onPressed: () {
-                              doKomentar(id, widget.detail.id, widget.name,
-                                  bintang, widget.imgUrl, komentar);
+                              doKomentar(id, widget.detail.id, widget.username,
+                                  bintang, komentar);
                             },
                             child: Text(
                               "Submit",
@@ -140,7 +138,7 @@ class _ReviewState extends State<Review> {
                                       radius: 17.0,
                                       child: ClipOval(
                                         child: Image.asset(
-                                            widget.reviews[index].imageAsset),
+                                            widget.reviews[index]['imgUrl']),
                                       ),
                                     ),
                                   ),
@@ -151,7 +149,8 @@ class _ReviewState extends State<Review> {
                                     children: [
                                       Container(
                                         padding: EdgeInsets.only(left: 10),
-                                        child: Text(widget.reviews[index].nama,
+                                        child: Text(
+                                            widget.reviews[index]['name'],
                                             style: TextStyle(
                                                 fontSize: 10,
                                                 fontWeight: FontWeight.bold)),
@@ -161,7 +160,8 @@ class _ReviewState extends State<Review> {
                                           Container(
                                             padding: EdgeInsets.only(left: 10),
                                             child: Text(
-                                                widget.reviews[index].bintang,
+                                                widget.reviews[index]
+                                                    ['bintang'],
                                                 style: TextStyle(fontSize: 11)),
                                           ),
                                           // Container(
@@ -176,7 +176,7 @@ class _ReviewState extends State<Review> {
                                         width: 230,
                                         padding: EdgeInsets.only(left: 10),
                                         child: Text(
-                                            widget.reviews[index].komentar,
+                                            widget.reviews[index]['komentar'],
                                             style: TextStyle(fontSize: 10)),
                                       ),
                                     ],

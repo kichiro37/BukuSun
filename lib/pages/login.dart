@@ -242,7 +242,29 @@ class _LoginState extends State<Login> {
               return MainScreen(username: username, name: name, imgUrl: imgUrl);
             }));
           } else
-            print('LOGIN GAGAL');
+            showDialog(
+                context: context,
+                builder: (BuildContext context) => AlertDialog(
+                      backgroundColor: Colors.black,
+                      title: Text('Login Gagal',
+                          style: TextStyle(
+                              color: Colors.amber,
+                              fontWeight: FontWeight.bold)),
+                      content: Text('Username or Password salah',
+                          style: TextStyle(color: Colors.amber)),
+                      actions: [
+                        TextButton(
+                            onPressed: () {
+                              Navigator.pop(context, 'OK');
+                            },
+                            child: Text(
+                              'OK',
+                              style: TextStyle(
+                                  color: Colors.amber,
+                                  fontWeight: FontWeight.bold),
+                            ))
+                      ],
+                    ));
         },
         child: Text(
           'LOGIN',

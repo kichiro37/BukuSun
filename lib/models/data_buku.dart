@@ -1,3 +1,5 @@
+import 'package:bossunapp/models/data_account.dart';
+
 class DataBuku {
   String id;
   String judul;
@@ -15,23 +17,43 @@ class DataBuku {
       required this.imageAsset,
       required this.deskripsi,
       required this.publisher});
+
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'judul': judul,
+      'imageAsset': imageAsset,
+      'deskripsi': deskripsi,
+      'author': author,
+      'publisher': publisher,
+      'tanggal': tanggal,
+    };
+  }
 }
 
 class ReviewBuku {
   String id;
   String idBuku;
-  String nama;
+  String username;
   String bintang;
-  String imageAsset;
   String komentar;
 
   ReviewBuku(
       {required this.id,
       required this.idBuku,
-      required this.nama,
+      required this.username,
       required this.bintang,
-      required this.imageAsset,
       required this.komentar});
+
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'idBuku': idBuku,
+      'username': username,
+      'bintang': bintang,
+      'komentar': komentar,
+    };
+  }
 }
 
 var dataBukuList = [
@@ -78,42 +100,37 @@ var reviewList = [
   ReviewBuku(
       id: 'review1',
       idBuku: 'buku4',
-      nama: 'depan',
+      username: 'kichiro',
       bintang: '★★',
-      imageAsset: 'img/depan.jpg',
       komentar: 'larii ada banteeeeng'),
   ReviewBuku(
       id: 'review2',
       idBuku: 'buku4',
-      nama: 'depan',
+      username: 'kichiro',
       bintang: '★★',
-      imageAsset: 'img/depan.jpg',
       komentar:
           'larii ada banteeeenglarii ada banteeeenglarii ada banteeeenglarii ada banteeeeng'),
   ReviewBuku(
     id: 'review5',
     idBuku: 'buku1',
-    nama: 'depan',
+    username: 'kichiro',
     bintang: '★★',
-    imageAsset: 'img/depan.jpg',
     komentar:
         'larii ada banteeeenglarii ada banteeeenglarii ada banteeeenglarii ada banteeeeng',
   ),
   ReviewBuku(
     id: 'review3',
     idBuku: 'buku4',
-    nama: 'depan',
+    username: 'kichiro',
     bintang: '★★',
-    imageAsset: 'img/depan.jpg',
     komentar:
         'larii ada banteeeenglarii ada banteeeenglarii ada banteeeenglarii ada banteeeeng',
   ),
   ReviewBuku(
     id: 'review4',
     idBuku: 'buku4',
-    nama: 'depan',
+    username: 'bossun',
     bintang: '★★',
-    imageAsset: 'img/depan.jpg',
     komentar:
         'larii ada banteeeenglarii ada banteeeenglarii ada banteeeenglarii ada banteeeenglarii ada banteeeenglarii ada banteeeenglarii ada banteeeenglarii ada banteeeenglarii ada banteeeenglarii ada banteeeenglarii ada banteeeenglarii ada banteeeenglarii ada banteeeenglarii ada banteeeenglarii ada banteeeenglarii ada banteeeeng',
   )
@@ -122,7 +139,12 @@ var reviewList = [
 List reviewBukuList(idBuku) {
   var output = [];
   reviewList.forEach((review) {
-    if (review.idBuku == idBuku) output.add(review);
+    if (review.idBuku == idBuku) {
+      final reviewAccount =
+          dataAccount.firstWhere((akun) => akun.username == review.username);
+
+      output.add({...review.toMap(), ...reviewAccount.toMap()});
+    }
   });
   return output;
 }

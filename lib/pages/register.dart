@@ -43,12 +43,21 @@ Widget buildLoginBtn(context) {
 }
 
 class _RegisterState extends State<Register> {
-  final _text = TextEditingController();
-  bool _validate = false;
+  final _textUsername = TextEditingController();
+  final _textName = TextEditingController();
+  final _textPassword = TextEditingController();
+  final _textRepassword = TextEditingController();
+  final _textImgUrl = TextEditingController();
+  bool _validateUsername = false;
+  bool _validateName = false;
+  bool _validatePassword = false;
+  bool _validateRepassword = false;
+  bool _validateImgUrl = false;
+
   String? username;
   String? name;
   String? password;
-  String repassword = '';
+  String? repassword;
   String? imgUrl;
 
   void doRegister(username, name, password, repassword, imgUrl) {
@@ -67,17 +76,93 @@ class _RegisterState extends State<Register> {
             // print('=====OO=====');
             if (akun.username == username) {
               isFound = true;
-              print('gagal register karena user sama');
+              showDialog(
+                  context: context,
+                  builder: (BuildContext context) => AlertDialog(
+                        backgroundColor: Colors.black,
+                        title: Text('Gagal Register',
+                            style: TextStyle(
+                                color: Colors.amber,
+                                fontWeight: FontWeight.bold)),
+                        content: Text('Username sudah ada',
+                            style: TextStyle(color: Colors.amber)),
+                        actions: [
+                          TextButton(
+                              onPressed: () {
+                                Navigator.pop(context, 'OK');
+                              },
+                              child: Text('OK',
+                                  style: TextStyle(
+                                      color: Colors.amber,
+                                      fontWeight: FontWeight.bold)))
+                        ],
+                      ));
             }
           });
           if (!isFound) {
-            print('register');
+            showDialog(
+                context: context,
+                builder: (BuildContext context) => AlertDialog(
+                      backgroundColor: Colors.black,
+                      title: Text('Berhasil Register',
+                          style: TextStyle(
+                              color: Colors.amber,
+                              fontWeight: FontWeight.bold)),
+                      actions: [
+                        TextButton(
+                            onPressed: () {
+                              Navigator.pop(context, 'OK');
+                            },
+                            child: Text('OK',
+                                style: TextStyle(
+                                    color: Colors.amber,
+                                    fontWeight: FontWeight.bold)))
+                      ],
+                    ));
             addAccount(username, name, password, imgUrl);
           }
         } else
-          print('repassword tidak sama');
+          showDialog(
+              context: context,
+              builder: (BuildContext context) => AlertDialog(
+                    backgroundColor: Colors.black,
+                    title: Text('Gagal Register',
+                        style: TextStyle(
+                            color: Colors.amber, fontWeight: FontWeight.bold)),
+                    content: Text('Repassword tidak sama',
+                        style: TextStyle(color: Colors.amber)),
+                    actions: [
+                      TextButton(
+                          onPressed: () {
+                            Navigator.pop(context, 'OK');
+                          },
+                          child: Text('OK',
+                              style: TextStyle(
+                                  color: Colors.amber,
+                                  fontWeight: FontWeight.bold)))
+                    ],
+                  ));
       } else
-        print('panjang password kurang dari 8');
+        showDialog(
+            context: context,
+            builder: (BuildContext context) => AlertDialog(
+                  title: Text('Gagal Register',
+                      style: TextStyle(
+                          color: Colors.amber, fontWeight: FontWeight.bold)),
+                  content: Text('panjang password kurang dari 8',
+                      style: TextStyle(
+                          color: Colors.amber, fontWeight: FontWeight.bold)),
+                  actions: [
+                    TextButton(
+                        onPressed: () {
+                          Navigator.pop(context, 'OK');
+                        },
+                        child: Text('OK',
+                            style: TextStyle(
+                                color: Colors.amber,
+                                fontWeight: FontWeight.bold)))
+                  ],
+                ));
     } else
       print('gagal register');
   }
@@ -99,7 +184,8 @@ class _RegisterState extends State<Register> {
 
   @override
   void dispose() {
-    _text.dispose();
+    _textUsername.dispose();
+    _textName.dispose();
     super.dispose();
   }
 
@@ -186,14 +272,15 @@ class _RegisterState extends State<Register> {
               ]),
           height: 50,
           child: TextField(
-            controller: _text,
+            controller: _textUsername,
             onChanged: (value) {
               username = value;
             },
             keyboardType: TextInputType.name,
             style: TextStyle(color: Colors.amber),
             decoration: InputDecoration(
-                errorText: _validate ? 'Username can\'t be empty' : null,
+                errorText:
+                    _validateUsername ? 'Username can\'t be empty' : null,
                 errorStyle: TextStyle(color: Colors.amber),
                 border: InputBorder.none,
                 contentPadding: EdgeInsets.only(top: 14, left: 14),
@@ -225,14 +312,17 @@ class _RegisterState extends State<Register> {
               ]),
           height: 50,
           child: TextField(
+            controller: _textName,
             onChanged: (value) {
               name = value;
             },
             keyboardType: TextInputType.name,
             style: TextStyle(color: Colors.amber),
             decoration: InputDecoration(
+                errorText: _validateName ? 'Name can\'t be empty' : null,
+                errorStyle: TextStyle(color: Colors.amber),
                 border: InputBorder.none,
-                contentPadding: EdgeInsets.only(top: 14),
+                contentPadding: EdgeInsets.only(top: 14, left: 14),
                 prefixIcon: Icon(
                   Icons.person,
                   color: Color(0xffffd700),
@@ -261,14 +351,19 @@ class _RegisterState extends State<Register> {
               ]),
           height: 50,
           child: TextField(
+            controller: _textPassword,
             onChanged: (value) {
               password = value;
             },
             obscureText: true,
             style: TextStyle(color: Colors.amber),
             decoration: InputDecoration(
+                errorText: _validatePassword
+                    ? 'Password must be at least 8 characters'
+                    : null,
+                errorStyle: TextStyle(color: Colors.amber),
                 border: InputBorder.none,
-                contentPadding: EdgeInsets.only(top: 14),
+                contentPadding: EdgeInsets.only(top: 14, left: 14),
                 prefixIcon: Icon(
                   Icons.lock,
                   color: Color(0xffffd700),
@@ -297,14 +392,17 @@ class _RegisterState extends State<Register> {
               ]),
           height: 50,
           child: TextField(
+            controller: _textRepassword,
             onChanged: (value) {
               repassword = value;
             },
             obscureText: true,
             style: TextStyle(color: Colors.amber),
             decoration: InputDecoration(
+                errorText: _validateRepassword ? 'Password not same' : null,
+                errorStyle: TextStyle(color: Colors.amber),
                 border: InputBorder.none,
-                contentPadding: EdgeInsets.only(top: 14),
+                contentPadding: EdgeInsets.only(top: 14, left: 14),
                 prefixIcon: Icon(
                   Icons.lock,
                   color: Color(0xffffd700),
@@ -333,14 +431,17 @@ class _RegisterState extends State<Register> {
               ]),
           height: 50,
           child: TextField(
+            controller: _textImgUrl,
             onChanged: (value) {
               imgUrl = value;
             },
             keyboardType: TextInputType.text,
             style: TextStyle(color: Colors.amber),
             decoration: InputDecoration(
+                errorText: _validateImgUrl ? 'ImageURL can\'t be empty' : null,
+                errorStyle: TextStyle(color: Colors.amber),
                 border: InputBorder.none,
-                contentPadding: EdgeInsets.only(top: 14),
+                contentPadding: EdgeInsets.only(top: 14, left: 14),
                 prefixIcon: Icon(
                   Icons.image,
                   color: Color(0xffffd700),
@@ -366,7 +467,21 @@ class _RegisterState extends State<Register> {
         ),
         onPressed: () {
           setState(() {
-            _text.text.isEmpty ? _validate = true : _validate = false;
+            _textUsername.text.isEmpty
+                ? _validateUsername = true
+                : _validateUsername = false;
+            _textName.text.isEmpty
+                ? _validateName = true
+                : _validateName = false;
+            _textPassword.text.isEmpty
+                ? _validatePassword = true
+                : _validatePassword = false;
+            _textRepassword.text != _textPassword.text
+                ? _validateRepassword = true
+                : _validateRepassword = false;
+            _textImgUrl.text.isEmpty
+                ? _validateImgUrl = true
+                : _validateImgUrl = false;
             doRegister(username, name, password, repassword, imgUrl);
           });
         },

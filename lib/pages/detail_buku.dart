@@ -6,9 +6,8 @@ import 'package:bossunapp/widgets/buku.dart';
 
 class DetailBuku extends StatefulWidget {
   final DataBuku detail;
-  final name;
-  final imgUrl;
-  DetailBuku({required this.detail, this.name, this.imgUrl});
+  final username;
+  DetailBuku({required this.detail, this.username});
 
   @override
   _DetailBukuState createState() => _DetailBukuState(detail);
@@ -36,7 +35,10 @@ class _DetailBukuState extends State<DetailBuku> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Buku(detail: widget.detail),
+              Buku(
+                detail: widget.detail,
+                username: widget.username,
+              ),
               Row(
                 children: [
                   Expanded(
@@ -58,11 +60,9 @@ class _DetailBukuState extends State<DetailBuku> {
                 endIndent: 10,
               ),
               Review(
-                detail: widget.detail,
-                reviews: reviews,
-                name: widget.name,
-                imgUrl: widget.imgUrl,
-              ),
+                  detail: widget.detail,
+                  reviews: reviews,
+                  username: widget.username),
             ],
           ),
         ),

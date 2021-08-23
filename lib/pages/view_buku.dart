@@ -6,10 +6,9 @@ import 'package:bossunapp/widgets/buku.dart';
 class ViewBuku extends StatefulWidget {
   final dataBukuList;
   final viewMode;
-  final name;
-  final imgUrl;
+  final username;
   const ViewBuku(
-      {required this.dataBukuList, this.viewMode = 0, this.name, this.imgUrl});
+      {required this.dataBukuList, this.viewMode = 0, this.username});
 
   @override
   _ViewBukuState createState() => _ViewBukuState();
@@ -118,8 +117,7 @@ class _ViewBukuState extends State<ViewBuku> {
             Navigator.of(context).push(MaterialPageRoute(builder: (context) {
               return DetailBuku(
                 detail: detail,
-                name: widget.name,
-                imgUrl: widget.imgUrl,
+                username: widget.username,
               );
             }));
           },

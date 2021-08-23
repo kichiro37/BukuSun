@@ -82,9 +82,9 @@ class _MainScreenState extends State<MainScreen> {
         ),
         body: TabBarView(children: [
           ViewBuku(
-              dataBukuList: dataBukuList,
-              name: widget.name,
-              imgUrl: widget.imgUrl),
+            dataBukuList: dataBukuList,
+            username: widget.username,
+          ),
           Center(
             child: Text('tab Comedy'),
           ),

@@ -9,6 +9,15 @@ class Account {
       required this.name,
       required this.password,
       required this.imgUrl});
+
+  Map<String, dynamic> toMap() {
+    return {
+      'username': username,
+      'name': name,
+      'imgUrl': imgUrl,
+      'password': password,
+    };
+  }
 }
 
 List<Account> dataAccount = [
@@ -17,10 +26,10 @@ List<Account> dataAccount = [
       username: 'kichiro',
       name: 'Aditya Andre',
       password: '1234',
-      imgUrl: '432'),
+      imgUrl: 'img/depan.jpg'),
   Account(
       username: 'bossun',
       name: 'Kurniawan Aditya',
       password: '1234',
-      imgUrl: '432'),
+      imgUrl: 'img/andre.jpg'),
 ];

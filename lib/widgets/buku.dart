@@ -1,11 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:bossunapp/models/data_wishlist.dart';
 
 class Buku extends StatelessWidget {
   final detail;
-  Buku({required this.detail});
+  final username;
+  Buku({required this.detail, this.username});
 
   @override
   Widget build(BuildContext context) {
+    // print(
+    //     '==============================BUKU==================================');
+    // print(username);
+    // print('================================================================');
+
+    void doWishlist(username, idBuku) {
+      dataWishlist.add(Wishlist(username: username, idBuku: idBuku));
+      dataWishlist.forEach((wish) {
+        print('=================');
+        print(wish.username);
+        print(wish.idBuku);
+        print('=================');
+      });
+    }
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -63,19 +80,30 @@ class Buku extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-                    margin: EdgeInsets.all(10),
+                    margin: EdgeInsets.only(right: 10),
                     child: Row(
                       children: [
-                        Icon(
-                          Icons.add,
-                          size: 10,
-                          color: Colors.lightBlue,
-                        ),
-                        Text(
-                          "Add to Wishlist",
-                          style:
-                              TextStyle(color: Colors.lightBlue, fontSize: 10),
-                        ),
+                        TextButton(
+                            onPressed: () {
+                              doWishlist(username, detail.id);
+                              showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) =>
+                                      AlertDialog(
+                                        title: Text('Berhasil Wishlist'),
+                                        actions: [
+                                          TextButton(
+                                              onPressed: () {
+                                                Navigator.pop(context, 'OK');
+                                              },
+                                              child: Text('OK'))
+                                        ],
+                                      ));
+                            },
+                            child: Text(
+                              '+ Add to Wishlist',
+                              style: TextStyle(fontSize: 10),
+                            ))
                       ],
                     ))
               ],
