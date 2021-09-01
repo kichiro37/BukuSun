@@ -1,4 +1,5 @@
 import 'package:bossunapp/models/data_buku.dart';
+import 'package:bossunapp/pages/wishlist.dart';
 // import 'package:bossunapp/models/data_account.dart';
 import 'package:flutter/material.dart';
 import 'package:bossunapp/pages/appbar_new.dart';
@@ -9,11 +10,7 @@ class MainScreen extends StatefulWidget {
   final username;
   final name;
   final imgUrl;
-  MainScreen(
-      {Key? key,
-      required this.username,
-      required this.name,
-      required this.imgUrl})
+  MainScreen({Key? key, required this.username, this.name, this.imgUrl})
       : super(key: key);
 
   @override
@@ -21,6 +18,7 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
+  final List<DataBuku> detail = dataBukuList;
   final List<Tab> myTab = [
     Tab(
       text: 'HOT',
@@ -71,6 +69,17 @@ class _MainScreenState extends State<MainScreen> {
                 leading: Icon(Icons.home),
                 title: Text('Home'),
                 onTap: () {},
+              ),
+              ListTile(
+                leading: Icon(Icons.home),
+                title: Text('Wishlist'),
+                onTap: () {
+                  Navigator.of(context)
+                      .push(MaterialPageRoute(builder: (context) {
+                    return PageWishlist(
+                        dataBukuList: dataBukuList, username: widget.username);
+                  }));
+                },
               ),
               ListTile(
                 leading: Icon(Icons.coffee),

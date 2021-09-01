@@ -17,6 +17,7 @@ class _DetailBukuState extends State<DetailBuku> {
   var reviews;
   _DetailBukuState(detail) {
     reviews = reviewBukuList(detail.id);
+    // print(reviews);
   }
 
   @override
@@ -29,7 +30,7 @@ class _DetailBukuState extends State<DetailBuku> {
       ),
       body: SingleChildScrollView(
           child: Container(
-        padding: EdgeInsets.only(left: 10, right: 10, top: 10),
+        padding: EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 10),
         child: Card(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,

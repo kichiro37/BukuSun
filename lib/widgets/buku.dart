@@ -11,17 +11,20 @@ class Buku extends StatefulWidget {
 }
 
 class _BukuState extends State<Buku> {
+  bool isWishlist = false;
   _BukuState(username, detail) {
-    var isFound = false;
-    dataWishlist.forEach((wish) {
-      if (wish.username == username && wish.idBuku == detail.id) isFound = true;
-    });
-    if (!isFound) {
-      isWishlist = false;
-    }
+    refreshWishlist(username, detail.id);
+    print(username);
+    print(detail.id);
   }
 
-  bool isWishlist = true;
+  void refreshWishlist(username, id) {
+    isWishlist = false;
+    dataWishlist.forEach((wish) {
+      if (wish.username == username && wish.idBuku == id) isWishlist = true;
+    });
+  }
+
   void doWishlist(username, idBuku) {
     dataWishlist.add(Wishlist(username: username, idBuku: idBuku));
     dataWishlist.forEach((wish) {
@@ -30,7 +33,7 @@ class _BukuState extends State<Buku> {
       print(wish.idBuku);
       print('=================');
     });
-    isWishlist = true;
+    refreshWishlist(username, idBuku);
   }
 
   void doRemoveWishlist(username, idBuku) {
@@ -43,7 +46,7 @@ class _BukuState extends State<Buku> {
       print(wish.idBuku);
       print('=================');
     });
-    isWishlist = false;
+    refreshWishlist(username, idBuku);
   }
 
   @override
@@ -109,7 +112,7 @@ class _BukuState extends State<Buku> {
               mainAxisAlignment: MainAxisAlignment.end,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                isWishlist == true
+                isWishlist
                     ? Container(
                         margin: EdgeInsets.only(right: 10),
                         child: Row(

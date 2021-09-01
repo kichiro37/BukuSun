@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:bossunapp/models/data_account.dart';
+import 'package:uuid/uuid.dart';
 
 class Register extends StatefulWidget {
   const Register({Key? key}) : super(key: key);
@@ -59,8 +60,9 @@ class _RegisterState extends State<Register> {
   String? password;
   String? repassword;
   String? imgUrl;
+  var uuid = Uuid();
 
-  void doRegister(username, name, password, repassword, imgUrl) {
+  void doRegister(id, username, name, password, repassword, imgUrl) {
     if (username != null &&
         name != null &&
         password != null &&
@@ -119,7 +121,7 @@ class _RegisterState extends State<Register> {
                                     fontWeight: FontWeight.bold)))
                       ],
                     ));
-            addAccount(username, name, password, imgUrl);
+            addAccount(id, username, name, password, imgUrl);
           }
         } else
           showDialog(
@@ -167,13 +169,18 @@ class _RegisterState extends State<Register> {
       print('gagal register');
   }
 
-  void addAccount(username, name, password, imgUrl) {
+  void addAccount(id, username, name, password, imgUrl) {
     dataAccount.add(
       Account(
-          username: username, name: name, password: password, imgUrl: imgUrl),
+          id: id,
+          username: username,
+          name: name,
+          password: password,
+          imgUrl: imgUrl),
     );
     dataAccount.forEach((akun) {
       print('=================');
+      print(akun.id);
       print(akun.username);
       print(akun.name);
       print(akun.password);
@@ -467,6 +474,7 @@ class _RegisterState extends State<Register> {
         ),
         onPressed: () {
           setState(() {
+            String id = uuid.v4();
             _textUsername.text.isEmpty
                 ? _validateUsername = true
                 : _validateUsername = false;
@@ -482,7 +490,7 @@ class _RegisterState extends State<Register> {
             _textImgUrl.text.isEmpty
                 ? _validateImgUrl = true
                 : _validateImgUrl = false;
-            doRegister(username, name, password, repassword, imgUrl);
+            doRegister(id, username, name, password, repassword, imgUrl);
           });
         },
         child: Text(
