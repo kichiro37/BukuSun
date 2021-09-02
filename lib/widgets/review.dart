@@ -21,9 +21,9 @@ class _ReviewState extends State<Review> {
   _ReviewState(detail, reviews) {
     reviewsLokal = reviews;
     refreshReview(detail.id);
-    print('==============');
-    print(reviewsLokal);
-    print('==============');
+    // print('==============');
+    // print(reviewsLokal);
+    // print('==============');
   }
 
   void refreshReview(idBuku) {
@@ -149,20 +149,6 @@ class _ReviewState extends State<Review> {
                       ),
                     ],
                   ),
-                  Container(
-                    padding: EdgeInsets.only(left: 15),
-                    child: Text(
-                      "4.6",
-                      style: TextStyle(fontSize: 40),
-                    ),
-                  ),
-                  Container(
-                    padding: EdgeInsets.only(left: 15),
-                    child: Text(
-                      "★★★★",
-                      style: TextStyle(fontSize: 15),
-                    ),
-                  ),
                 ],
               ),
             ))
@@ -171,6 +157,7 @@ class _ReviewState extends State<Review> {
         isReview
             ? buildReview()
             : Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Container(
                     padding: EdgeInsets.all(10),
@@ -183,82 +170,104 @@ class _ReviewState extends State<Review> {
   }
 
   Widget buildReview() {
-    return Row(
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        SizedBox(
-            height: 300,
-            width: 300,
-            child: ListView.builder(
-              itemCount: reviewsLokal.length,
-              itemBuilder: (context, index) {
-                return Container(
-                  padding: EdgeInsets.all(10),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Column(
+        Container(
+          padding: EdgeInsets.only(left: 15),
+          child: Text(
+            "4.6",
+            style: TextStyle(fontSize: 40),
+          ),
+        ),
+        Container(
+          padding: EdgeInsets.only(left: 15),
+          child: Text(
+            "★★★★",
+            style: TextStyle(fontSize: 15),
+          ),
+        ),
+        Row(
+          children: [
+            SizedBox(
+                height: 300,
+                width: 300,
+                child: ListView.builder(
+                  itemCount: reviewsLokal.length,
+                  itemBuilder: (context, index) {
+                    return Container(
+                      padding: EdgeInsets.all(10),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                          Column(
                             children: [
-                              Container(
-                                padding: EdgeInsets.only(left: 15),
-                                child: CircleAvatar(
-                                  backgroundColor: Colors.red,
-                                  radius: 17.0,
-                                  child: ClipOval(
-                                    child: Image.asset(
-                                        widget.reviews[index]['imgUrl']),
-                                  ),
-                                ),
-                              ),
-                              Column(
+                              Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Container(
-                                    padding: EdgeInsets.only(left: 10),
-                                    child: Text(reviewsLokal[index]['name'],
-                                        style: TextStyle(
-                                            fontSize: 10,
-                                            fontWeight: FontWeight.bold)),
+                                    padding: EdgeInsets.only(left: 15),
+                                    child: CircleAvatar(
+                                      backgroundColor: Colors.red,
+                                      radius: 17.0,
+                                      child: ClipOval(
+                                        child: Image.asset(
+                                            reviewsLokal[index]['imgUrl']),
+                                      ),
+                                    ),
                                   ),
-                                  Row(
+                                  Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Container(
                                         padding: EdgeInsets.only(left: 10),
-                                        child: Text(
-                                            reviewsLokal[index]['bintang'],
-                                            style: TextStyle(fontSize: 11)),
+                                        child: Text(reviewsLokal[index]['name'],
+                                            style: TextStyle(
+                                                fontSize: 10,
+                                                fontWeight: FontWeight.bold)),
                                       ),
-                                      // Container(
-                                      //   padding: EdgeInsets.only(left: 5),
-                                      //   child: Text(
-                                      //       widget.reviews[index].tanggal,
-                                      //       style: TextStyle(fontSize: 10)),
-                                      // ),
+                                      Row(
+                                        children: [
+                                          Container(
+                                            padding: EdgeInsets.only(left: 10),
+                                            child: Text(
+                                                reviewsLokal[index]['bintang'],
+                                                style: TextStyle(fontSize: 11)),
+                                          ),
+                                          // Container(
+                                          //   padding: EdgeInsets.only(left: 5),
+                                          //   child: Text(
+                                          //       widget.reviews[index].tanggal,
+                                          //       style: TextStyle(fontSize: 10)),
+                                          // ),
+                                        ],
+                                      ),
+                                      Container(
+                                        width: 230,
+                                        padding: EdgeInsets.only(
+                                            left: 10, bottom: 10),
+                                        child: Text(
+                                            reviewsLokal[index]['komentar'],
+                                            style: TextStyle(fontSize: 10)),
+                                      ),
                                     ],
-                                  ),
-                                  Container(
-                                    width: 230,
-                                    padding:
-                                        EdgeInsets.only(left: 10, bottom: 10),
-                                    child: Text(reviewsLokal[index]['komentar'],
-                                        style: TextStyle(fontSize: 10)),
                                   ),
                                 ],
                               ),
                             ],
-                          ),
+                          )
                         ],
-                      )
-                    ],
-                  ),
-                );
-              },
-            ))
+                      ),
+                    );
+                  },
+                ))
+          ],
+        ),
       ],
     );
   }

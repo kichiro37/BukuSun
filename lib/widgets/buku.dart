@@ -28,7 +28,7 @@ class _BukuState extends State<Buku> {
   void doWishlist(username, idBuku) {
     dataWishlist.add(Wishlist(username: username, idBuku: idBuku));
     dataWishlist.forEach((wish) {
-      print('=================');
+      print('========doWISH==========');
       print(wish.username);
       print(wish.idBuku);
       print('=================');
@@ -37,11 +37,14 @@ class _BukuState extends State<Buku> {
   }
 
   void doRemoveWishlist(username, idBuku) {
-    dataWishlist.removeWhere(
-        (wish) => wish.username == username && wish.idBuku == idBuku);
+    setState(() {
+      dataWishlist.removeWhere(
+          (wish) => wish.username == username && wish.idBuku == idBuku);
+    });
+
     // dataWishlist.remove(Wishlist(username: username, idBuku: idBuku));
     dataWishlist.forEach((wish) {
-      print('=================');
+      print('==========removeWISH==========');
       print(wish.username);
       print(wish.idBuku);
       print('=================');

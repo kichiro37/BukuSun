@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:bossunapp/models/data_buku.dart';
 import 'package:bossunapp/pages/detail_buku.dart';
 import 'package:flutter/material.dart';
@@ -16,24 +17,62 @@ class PageWishlist extends StatefulWidget {
 class _PageWishlistState extends State<PageWishlist> {
   var idBuku = [];
   var detail = [];
+  var username;
+  bool test = true;
   _PageWishlistState(username, dataBukuList) {
+    this.username = username;
+    getWishlist(username);
+    getBukuInfo();
+
+    print('====================');
+    print(idBuku);
+    print('====================');
+
+    // print('==================');
+    // detail.forEach((book) {
+    //   print(book.id);
+    //   print(book.judul);
+    // });
+    // print('==================');
+  }
+
+  FutureOr onGoBack(dynamic value) {
+    refreshWishlist();
+    print('=======GOBACk=======');
+    print(idBuku);
+    print('====================');
+    print('=======GOBACk=======');
+    print(detail);
+    print('====================');
+  }
+
+  void getWishlist(username) {
     dataWishlist.forEach((wish) {
       if (wish.username == username) idBuku.add(wish.idBuku);
     });
+  }
 
+  void getBukuInfo() {
     idBuku.forEach((buku) {
       dataBukuList.forEach((book) {
         if (buku == book.id) detail.add(book);
       });
     });
+  }
 
-    print(idBuku);
-    print('==================');
-    detail.forEach((book) {
-      print(book.id);
-      print(book.judul);
+  void refreshWishlist() {
+    setState(() {
+      idBuku = [];
+      detail = [];
+      dataWishlist.forEach((wish) {
+        if (wish.username == username) idBuku.add(wish.idBuku);
+      });
+      idBuku.forEach((buku) {
+        dataBukuList.forEach((book) {
+          if (buku == book.id) detail.add(book);
+        });
+      });
     });
-    print('==================');
   }
 
   @override
@@ -55,48 +94,50 @@ class _PageWishlistState extends State<PageWishlist> {
               childAspectRatio: 2 / 3,
             ),
             itemBuilder: (BuildContext context, int index) {
-              return InkWell(
-                onTap: () {
-                  Navigator.of(context)
-                      .push(MaterialPageRoute(builder: (context) {
-                    final DataBuku detul = detail[index];
-                    return DetailBuku(
-                      detail: detul,
-                      username: widget.username,
-                    );
-                  }));
-                },
-                child: Stack(
-                  children: [
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        Expanded(
-                          child: Image.asset(detail[index].imageAsset,
-                              fit: BoxFit.cover),
-                        ),
-                      ],
-                    ),
-                    Container(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        crossAxisAlignment: CrossAxisAlignment.start,
+              return detail.length == 0
+                  ? Text('Kosong')
+                  : InkWell(
+                      onTap: () {
+                        Navigator.of(context)
+                            .push(MaterialPageRoute(builder: (context) {
+                          final DataBuku detul = detail[index];
+                          return DetailBuku(
+                            detail: detul,
+                            username: widget.username,
+                          );
+                        })).then(onGoBack);
+                      },
+                      child: Stack(
                         children: [
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                              Expanded(
+                                child: Image.asset(detail[index].imageAsset,
+                                    fit: BoxFit.cover),
+                              ),
+                            ],
+                          ),
                           Container(
-                              width: 300,
-                              color: Colors.black.withOpacity(0.4),
-                              padding: EdgeInsets.all(10),
-                              child: Text(
-                                detail[index].judul,
-                                style: TextStyle(color: Colors.white),
-                              )),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Container(
+                                    width: 300,
+                                    color: Colors.black.withOpacity(0.4),
+                                    padding: EdgeInsets.all(10),
+                                    child: Text(
+                                      detail[index].judul,
+                                      style: TextStyle(color: Colors.white),
+                                    )),
+                              ],
+                            ),
+                          ),
                         ],
                       ),
-                    ),
-                  ],
-                ),
-              );
+                    );
             }));
   }
 }
