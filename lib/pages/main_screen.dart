@@ -1,5 +1,6 @@
 import 'package:bossunapp/models/data_buku.dart';
 import 'package:bossunapp/pages/wishlist.dart';
+import 'package:bossunapp/pages/album.dart';
 // import 'package:bossunapp/models/data_account.dart';
 import 'package:flutter/material.dart';
 import 'package:bossunapp/pages/appbar_new.dart';
@@ -94,9 +95,7 @@ class _MainScreenState extends State<MainScreen> {
             dataBukuList: dataBukuList,
             username: widget.username,
           ),
-          Center(
-            child: Text('tab Comedy'),
-          ),
+          Albums(),
           Center(
             child: Text('tab Horror'),
           ),

@@ -31,6 +31,7 @@ dependencies:
   expandable_text: ^2.2.0
   flutter_speed_dial: ^4.2.0
   uuid: 3.0.4
+  http: ^0.13.3
 
 dev_dependencies:
   flutter_test:

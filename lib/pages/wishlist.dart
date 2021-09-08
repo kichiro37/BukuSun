@@ -25,7 +25,7 @@ class _PageWishlistState extends State<PageWishlist> {
     getBukuInfo();
 
     print('====================');
-    print(idBuku);
+    print(detail.length);
     print('====================');
 
     // print('==================');
@@ -84,60 +84,64 @@ class _PageWishlistState extends State<PageWishlist> {
           backgroundColor: Colors.amber,
           centerTitle: true,
         ),
-        body: GridView.builder(
-            padding: EdgeInsets.all(10),
-            itemCount: detail.length,
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: _width < 400 ? 2 : 3,
-              crossAxisSpacing: 10,
-              mainAxisSpacing: 10,
-              childAspectRatio: 2 / 3,
-            ),
-            itemBuilder: (BuildContext context, int index) {
-              return detail.length == 0
-                  ? Text('Kosong')
-                  : InkWell(
-                      onTap: () {
-                        Navigator.of(context)
-                            .push(MaterialPageRoute(builder: (context) {
-                          final DataBuku detul = detail[index];
-                          return DetailBuku(
-                            detail: detul,
-                            username: widget.username,
-                          );
-                        })).then(onGoBack);
-                      },
-                      child: Stack(
-                        children: [
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.stretch,
+        body: detail.length == 0
+            ? Center(
+                child: Container(
+                  child: Text('Wishlist Kosong'),
+                ),
+              )
+            : GridView.builder(
+                padding: EdgeInsets.all(10),
+                itemCount: detail.length,
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: _width < 400 ? 2 : 3,
+                  crossAxisSpacing: 10,
+                  mainAxisSpacing: 10,
+                  childAspectRatio: 2 / 3,
+                ),
+                itemBuilder: (BuildContext context, int index) {
+                  return InkWell(
+                    onTap: () {
+                      Navigator.of(context)
+                          .push(MaterialPageRoute(builder: (context) {
+                        final DataBuku detul = detail[index];
+                        return DetailBuku(
+                          detail: detul,
+                          username: widget.username,
+                        );
+                      })).then(onGoBack);
+                    },
+                    child: Stack(
+                      children: [
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            Expanded(
+                              child: Image.asset(detail[index].imageAsset,
+                                  fit: BoxFit.cover),
+                            ),
+                          ],
+                        ),
+                        Container(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Expanded(
-                                child: Image.asset(detail[index].imageAsset,
-                                    fit: BoxFit.cover),
-                              ),
+                              Container(
+                                  width: 300,
+                                  color: Colors.black.withOpacity(0.4),
+                                  padding: EdgeInsets.all(10),
+                                  child: Text(
+                                    detail[index].judul,
+                                    style: TextStyle(color: Colors.white),
+                                  )),
                             ],
                           ),
-                          Container(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Container(
-                                    width: 300,
-                                    color: Colors.black.withOpacity(0.4),
-                                    padding: EdgeInsets.all(10),
-                                    child: Text(
-                                      detail[index].judul,
-                                      style: TextStyle(color: Colors.white),
-                                    )),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    );
-            }));
+                        ),
+                      ],
+                    ),
+                  );
+                }));
   }
 }
